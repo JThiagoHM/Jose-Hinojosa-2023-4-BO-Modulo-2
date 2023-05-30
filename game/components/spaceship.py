@@ -27,14 +27,28 @@ class Spaceship(Sprite):
          self.move_up()
        elif user_input[pygame.K_DOWN]:
          self.move_down()
+       elif user_input[pygame.K_UP] and user_input[pygame.K_RIGHT]:
+         self.move_up_right()
+       elif user_input[pygame.K_UP] and user_input[pygame.K_LEFT]:
+         self.move_up_left()
+       elif user_input[pygame.K_DOWN] and user_input[pygame.K_RIGHT]:
+         self.move_down_right()
+       elif user_input[pygame.K_DOWN] and user_input[pygame.K_LEFT]:
+         self.move_down_left()
 
    def move_left(self):
-       if self.rect.left > 0:
+       if self.rect.left >= 0:
          self.rect.x -= self.SHIP_SPEED
+       else:
+          if self.rect.left < 0:
+            self.rect.right = SCREEN_WIDTH
 
    def move_right(self):
-       if self.rect.right < SCREEN_WIDTH:
+       if self.rect.right <= SCREEN_WIDTH:     
          self.rect.x += self.SHIP_SPEED
+       else:
+          if self.rect.right > SCREEN_WIDTH:
+            self.rect.left = 0
     
    def move_up(self):
        if self.rect.y > SCREEN_HEIGHT // 2:
@@ -44,8 +58,25 @@ class Spaceship(Sprite):
        if self.rect.y < SCREEN_HEIGHT - 70:
          self.rect.y += self.SHIP_SPEED
 
+   def move_up_right(self): 
+       if self.rect.y > SCREEN_HEIGHT // 2 and self.rect.right <= SCREEN_WIDTH:
+         self.rect.y -= self.SHIP_SPEED
+         self.rect.x += self.SHIP_SPEED
+         
+   def move_up_left(self): 
+       if self.rect.y > SCREEN_HEIGHT // 2 and self.rect.left >= 0:
+         self.rect.y -= self.SHIP_SPEED
+         self.rect.x -= self.SHIP_SPEED      
+
+   def move_down_right(self): 
+       if self.rect.y < SCREEN_HEIGHT - 70 and self.rect.right <= SCREEN_WIDTH:
+         self.rect.y += self.SHIP_SPEED
+         self.rect.x += self.SHIP_SPEED
+
+   def move_down_left(self): 
+       if self.rect.y < SCREEN_HEIGHT - 70 and self.rect.left >= 0:
+         self.rect.y += self.SHIP_SPEED
+         self.rect.x -= self.SHIP_SPEED 
 
    def draw(self, screen):
-       screen.blit(self.image, (self.rect.x, self.rect.y))
-
-    
+       screen.blit(self.image, (self.rect.x, self.rect.y)) 
