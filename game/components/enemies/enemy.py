@@ -3,7 +3,7 @@ import random
 
 from pygame.sprite import Sprite
 
-from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import ENEMY_1, ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH, ENEMY_SHOOT_SOUND
 from game.components.bullets.bullet import Bullet
 
 
@@ -58,9 +58,10 @@ class Enemy(Sprite):
         self.index = 0 
 
     def shoot(self, bullet_manager):
+      #ENEMY_SHOOT_SOUND.play()
       current_time = pygame.time.get_ticks()
       if self.shooting_time <= current_time:
         bullet = Bullet(self)
         bullet_manager.add_bullet(bullet)
-        self.shooting_time += random.randint(30, 50)
+        self.shooting_time += random.randint(40, 50)
 

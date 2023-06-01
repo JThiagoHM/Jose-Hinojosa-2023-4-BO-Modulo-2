@@ -1,5 +1,6 @@
 import pygame
 import os
+pygame.mixer.init()
 
 # Global Constants
 TITLE = "Spaceships Game"
@@ -29,3 +30,7 @@ ENEMY_1 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_1.png"))
 ENEMY_2 = pygame.image.load(os.path.join(IMG_DIR, "Enemy/enemy_2.png"))
 
 FONT_STYLE = 'freesansbold.ttf'
+
+SHOOT_SOUND = pygame.mixer.Sound('game/assets/Sounds/DisparoNave.mp3')
+ENEMY_SHOOT_SOUND = pygame.mixer.Sound('game/assets/Sounds/DisparoEnemigo.mp3')
+GAME_OVER_SOUND = pygame.mixer.Sound('game/assets/Sounds/GAMEOVER.mp3') 
