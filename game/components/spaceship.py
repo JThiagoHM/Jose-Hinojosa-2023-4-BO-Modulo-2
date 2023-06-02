@@ -5,7 +5,6 @@ from pygame.sprite import Sprite
 from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT, SHOOT_SOUND
 from game.components.bullets.bullet import Bullet
 
-
 class Spaceship(Sprite):
 
    SHIP_WIDTH = 40 
@@ -77,30 +76,6 @@ class Spaceship(Sprite):
        if self.rect.y < SCREEN_HEIGHT - 70:
          self.rect.y += self.SHIP_SPEED
 
-   #def move_up_right(self): 
-    #   self.move_right()
-     #  self.move_up()
-
-   # def move_up_left(self): 
-   #    if self.rect.y > SCREEN_HEIGHT // 2 and self.rect.left >= 0:
-   #      self.rect.y -= self.SHIP_SPEED
-   #     self.rect.x -= self.SHIP_SPEED 
-   #    elif self.rect.left < 0:
-   #     self.rect.x = SCREEN_WIDTH - self.SHIP_WIDTH
-            
-   #def move_down_right(self): 
-   #    if self.rect.y < SCREEN_HEIGHT - 70 and self.rect.right <= SCREEN_WIDTH:
-   #      self.rect.y += self.SHIP_SPEED
-   #      self.rect.x += self.SHIP_SPEED
-   #    elif self.rect.right >= SCREEN_WIDTH - self.SHIP_HEIGHT:
-   #      self.rect.x = 0
-    #def move_down_left(self): 
-    #  if self.rect.y < SCREEN_HEIGHT - 70 and self.rect.left >= 0:
-    #     self.rect.y += self.SHIP_SPEED
-    #     self.rect.x -= self.SHIP_SPEED
-    #  elif self.rect.left < 0:
-    #    self.rect.x = SCREEN_WIDTH - self.SHIP_WIDTH
-
    def draw(self, screen):
        screen.blit(self.image, (self.rect.x, self.rect.y)) 
 
@@ -109,5 +84,7 @@ class Spaceship(Sprite):
         bullet_manager.add_bullet(bullet)
         SHOOT_SOUND.play()
 
-        
-        
+   def reset(self):
+      self.rect.x = self.X_POS
+      self.rect.y = self.Y_POS
+

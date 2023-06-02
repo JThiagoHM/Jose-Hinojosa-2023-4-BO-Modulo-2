@@ -21,26 +21,27 @@ class Game:
         self.y_pos_bg = 0
         self.death_count = 0
         self.score = 0
+        self.highest_score = 0
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
-        self.menu = Menu('Press any button to start....', self.screen)
+        self.menu = Menu('Press any key to start...', self.screen)
 
     def execute(self):
         self.running = True
         while self.running:
             if not self.playing:
                 self.show_menu()
+    
         pygame.display.quit()
         pygame.quit()
         
-
-
     def run(self):
         # Game loop: events - update - draw
         self.score = 0
         self.enemy_manager.reset()
         self.bullet_manager.reset()
+        self.player.reset()
         self.playing = True
         while self.playing:
             self.events()
@@ -58,7 +59,6 @@ class Game:
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
         
-
     def draw(self):
         self.clock.tick(FPS)
         self.screen.fill((255, 255, 255))
@@ -69,7 +69,6 @@ class Game:
         self.draw_score()
         pygame.display.update()
         # pygame.display.flip()
-       
 
     def draw_background(self):
         image = pygame.transform.scale(BG, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -88,8 +87,12 @@ class Game:
 
         self.menu.reset_screen_color(self.screen)
 
-        if self.death_count >0 :
-            self.menu.update_message('New Message')
+        if self.death_count > 0:
+            self.draw_score() 
+            self.menu.update_message('Game Over. Press any key to restart', "", 0)
+            self.menu.update_message('Your Score', self.score, 50)
+            self.menu.update_message('Highest Score', self.highest_score, 100)
+            self.menu.update_message('Total Deaths', self.death_count, 150)
 
         icon = pygame.transform.scale(ICON, (80, 120))
         self.screen.blit(icon, (half_screen_width -50, half_screen_height -150))
@@ -98,7 +101,9 @@ class Game:
         self.menu.update(self)
 
     def update_score(self):
-        self.score += 1
+        self.score += 1 
+        if self.score > self.highest_score:
+           self.highest_score = self.score
 
     def draw_score(self):
         font = pygame.font.Font(FONT_STYLE, 30)
@@ -107,3 +112,40 @@ class Game:
         text_rect.center = (1000, 50)
         self.screen.blit(text, text_rect)
 
+'''
+    def draw_menu_score(self):
+        half_screen_width = SCREEN_WIDTH // 2
+        half_screen_height = SCREEN_HEIGHT // 2
+        font = pygame.font.Font(FONT_STYLE, 30)
+        text = font.render(f' Your Score: {self.score}', True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = (half_screen_width , half_screen_height +50)
+        self.screen.blit(text, text_rect)
+        
+    def draw_highest_score(self):
+        half_screen_width = SCREEN_WIDTH // 2
+        half_screen_height = SCREEN_HEIGHT // 2
+        font = pygame.font.Font(FONT_STYLE, 30)
+        text = font.render(f'Highest Score: {self.highest_score}', True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = (half_screen_width , half_screen_height +100)
+        self.screen.blit(text, text_rect)
+    
+    def draw_death_counter(self):
+        half_screen_width = SCREEN_WIDTH // 2
+        half_screen_height = SCREEN_HEIGHT // 2
+        font = pygame.font.Font(FONT_STYLE, 30)
+        text = font.render(f'Total Deaths: {self.death_count}', True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = (half_screen_width , half_screen_height +150)
+        self.screen.blit(text, text_rect)
+         
+    def draw_results(self, message, scores, height_size):
+        half_screen_width = SCREEN_WIDTH // 2
+        half_screen_height = SCREEN_HEIGHT // 2
+        font = pygame.font.Font(FONT_STYLE, 30)
+        text = font.render(f'{message}: {scores}', True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = (half_screen_width , half_screen_height + height_size)
+        self.screen.blit(text, text_rect)
+'''

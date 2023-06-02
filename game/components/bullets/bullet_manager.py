@@ -41,7 +41,7 @@ class BulletManager:
     if bullet.owner == 'enemy' and len(self.enemy_bullets) <=1:
         self.enemy_bullets.append(bullet)
 
-    elif bullet.owner == 'player' and len(self.bullets) <1:
+    elif bullet.owner == 'player' and len(self.bullets) <3:
         self.bullets.append(bullet)
  
   def reset(self):

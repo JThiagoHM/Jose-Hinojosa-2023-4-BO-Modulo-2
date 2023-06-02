@@ -13,6 +13,7 @@ class Menu:
       self.text = self.font.render(message, True, (0, 0, 0))
       self.text_rect = self.text.get_rect()
       self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
+      self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def update(self, game):
        pygame.display.update()
@@ -32,8 +33,9 @@ class Menu:
     def reset_screen_color(self, screen):
        screen.fill((255, 255, 255))
 
-    def update_message(self, message):
-       self.text = self.font.render(message, True, (0, 0, 0))
-       self.text_rect = self.text.get_rect()
-       self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
-
+    def update_message(self, message, scores, height_size):
+        self.text = self.font.render(f'{message}: {scores}', True, (0, 0, 0))
+        self.text_rect = self.text.get_rect()
+        self.text_rect.center = (self.HALF_SCREEN_WIDTH , self.HALF_SCREEN_HEIGHT + height_size)
+        self.screen.blit(self.text, self.text_rect)
+       

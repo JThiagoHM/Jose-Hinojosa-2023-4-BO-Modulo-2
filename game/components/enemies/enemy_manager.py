@@ -30,6 +30,5 @@ class EnemyManager:
         self.enemies.append(enemy)
 
     def reset(self):
-      self.bullets =[]
-      self.enemy_bullets = []
+      self.enemies = []
         
