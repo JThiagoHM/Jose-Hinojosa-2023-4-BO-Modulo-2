@@ -22,6 +22,8 @@ class Spaceship(Sprite):
        self.type = 'player'
        self.power_up_type = DEFAULT_TYPE
        self.has_power_up = False
+       self.has_second_power_up = False
+       self.has_third_power_up = False
        self.power_time_up = 0
 
    def update(self, user_input, game):

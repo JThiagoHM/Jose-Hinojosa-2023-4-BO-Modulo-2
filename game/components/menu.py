@@ -7,12 +7,9 @@ class Menu:
     HALF_SCREEN_HEIGHT = SCREEN_HEIGHT // 2
     HALF_SCREEN_WIDTH = SCREEN_WIDTH //2 
 
-    def __init__(self, message, screen):
+    def __init__(self, screen):
       screen.fill((255, 255, 255))
       self.font = pygame.font.Font(FONT_STYLE, 30)
-      self.text = self.font.render(message, True, (0, 0, 0))
-      self.text_rect = self.text.get_rect()
-      self.text_rect.center = (self.HALF_SCREEN_WIDTH, self.HALF_SCREEN_HEIGHT)
 
     def update(self, game):
        pygame.display.update()
@@ -32,14 +29,14 @@ class Menu:
     def reset_screen_color(self, screen):
        screen.fill((255, 255, 255))
 
-    def update_message(self, screen, message, scores, height_size):
-        self.text = self.font.render(f'{message} {scores}', True, (0, 0, 0))
+    def update_message(self, screen, message, scores, height_size, color):
+        self.text = self.font.render(f'{message} {scores}', True, color)
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.HALF_SCREEN_WIDTH , self.HALF_SCREEN_HEIGHT + height_size)
         screen.blit(self.text, self.text_rect)
 
-    def draw_power_counter(self, screen, message, x = 550, y = 50, color = (255, 255, 255)):
-       text = self.font.render(message, True, color)
-       text_rect = text.get_rect()
-       text_rect.center = (x, y)
-       screen.blit(text, text_rect)
+    #def draw(self, screen, message, x = 550, y = 50, color = (255, 255, 255)):
+     #  text = self.font.render(message, True, color)
+      # text_rect = text.get_rect()
+      # text_rect.center = (x, y)
+      # screen.blit(text, text_rect)

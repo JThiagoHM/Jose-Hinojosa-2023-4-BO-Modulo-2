@@ -1,7 +1,7 @@
 import pygame
 
 from game.utils.constants import GAME_OVER_SOUND
-from game.utils.constants import SHIELD_TYPE
+from game.utils.constants import SHIELD_TYPE, DRILL_BULLET_TYPE
 
 class BulletManager:
   def __init__(self):
@@ -10,7 +10,7 @@ class BulletManager:
 
   def update(self, game):
    for bullet in self.enemy_bullets:
-      bullet.update(self.enemy_bullets)
+      bullet.update(self.enemy_bullets, game)
 
       if bullet.rect.colliderect(game.player.rect) and bullet.owner == 'enemy':
         self.enemy_bullets.remove(bullet)
@@ -22,12 +22,15 @@ class BulletManager:
           break
 
    for bullet in self.bullets:
-      bullet.update(self.bullets)
+      bullet.update(self.bullets, game)
       for enemy in game.enemy_manager.enemies:
-       if bullet.rect.colliderect(enemy) and bullet.owner == 'player':
-         self.bullets.remove(bullet)
-         game.enemy_manager.enemies.remove(enemy)
-         game.update_score()
+       if game.player.power_up_type == DRILL_BULLET_TYPE and (bullet.rect.colliderect(enemy) and bullet.owner == 'player'):
+           game.enemy_manager.enemies.remove(enemy)
+       elif bullet.rect.colliderect(enemy) and bullet.owner == 'player':
+        self.bullets.remove(bullet)
+        game.enemy_manager.enemies.remove(enemy)
+        game.update_score()
+      
 
   def draw(self, screen):
     for bullet in self.enemy_bullets:
@@ -38,10 +41,10 @@ class BulletManager:
 
   def add_bullet(self, bullet):
     if bullet.owner == 'enemy' and len(self.enemy_bullets) <=1:
-        self.enemy_bullets.append(bullet)
-
+      self.enemy_bullets.append(bullet)
+      pass
     elif bullet.owner == 'player' and len(self.bullets) <3:
-        self.bullets.append(bullet)
+      self.bullets.append(bullet)
  
   def reset(self):
      self.bullets = []

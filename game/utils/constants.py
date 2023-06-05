@@ -34,3 +34,11 @@ FONT_STYLE = 'freesansbold.ttf'
 SHOOT_SOUND = pygame.mixer.Sound('game/assets/Sounds/DisparoNave.mp3')
 ENEMY_SHOOT_SOUND = pygame.mixer.Sound('game/assets/Sounds/DisparoEnemigo.mp3')
 GAME_OVER_SOUND = pygame.mixer.Sound('game/assets/Sounds/GAMEOVER.mp3') 
+DRILL_BULLET = pygame.image.load(os.path.join(IMG_DIR, 'Bullet/BigBullet.png'))
+DRILL_BULLET_TYPE = 'drill ammo'
+DRILL_BULLET_AMMO = pygame.image.load(os.path.join(IMG_DIR, 'Bullet/DrillBullet.png'))
+SPEED_BULLET = pygame.image.load(os.path.join(IMG_DIR, 'Bullet/SpeedBullet.png'))
+SPEED_BULLET_TYPE = 'quick shot'
+
+
+INIT_SOUND = pygame.mixer.Sound('game/assets/Sounds/InitSound.mp3')
